@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect, HttpResponseRedirect, HttpResponse
-from .forms import RegisterParentForm
+from .forms import *
 from django.core import validators
 from django.contrib import messages
 from .models import Parent, Child
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
 def index(request):
     return HttpResponse('under construction')
@@ -40,6 +41,18 @@ def loginParent(request):
             messages.info(request, 'Username or password is incorrect.')
         else:
             login(request, user)
-            # return HttpResponseRedirect(reverse(''))
-            return HttpResponse("Login successful")
+            return HttpResponseRedirect(reverse('createChild'))
     return render(request, 'login_parent.html')
+
+def createChild(request):
+    form = CreateChildForm()
+    if request.method == 'POST':
+        form = CreateChildForm(request.POST)
+        if form.is_valid():
+            child = form.save(commit=False)
+            child.parent = Parent.objects.get(user=request.user)
+            child.save()
+            messages.success(request, 'Child was created successfully')
+            return HttpResponse("Child was created successfully")
+    context = {'form': form}
+    return render(request, 'create_child.html', context)

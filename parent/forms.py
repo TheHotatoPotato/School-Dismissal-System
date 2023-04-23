@@ -16,3 +16,15 @@ class RegisterParentForm(UserCreationForm):
             'first_name': forms.TextInput(attrs={'placeholder': 'First Name'}),
             'last_name': forms.TextInput(attrs={'placeholder': 'Last Name'}),
         }
+
+class CreateChildForm(ModelForm):
+    class Meta:
+        model = Child
+        fields = ['name', 'age', 'school', 'grade', 'section']
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'age': forms.NumberInput(attrs={'placeholder': 'Age'}),
+            'school': forms.Select(attrs={'placeholder': 'School'}),
+            'grade': forms.NumberInput(attrs={'placeholder': 'Grade'}),
+            'section': forms.TextInput(attrs={'placeholder': 'Section'}),
+        }

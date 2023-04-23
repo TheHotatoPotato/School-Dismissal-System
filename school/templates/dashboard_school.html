@@ -13,6 +13,7 @@
         <header>School Dashboard</header>
         <div id="tab-wrapper">
             <a href="{% url 'childRequests' %}"><div class="tab"><i class="fa-solid fa-person-circle-check"></i></div></a>
+            <a href="{% url 'childRequests' %}"><div class="tab"><i class="fa-solid fa-people-group"></i></div></a>
         </div>
         <div id="child-wrapper">
             {% for child in children %}

@@ -1,0 +1,37 @@
+{% extends 'base_school.html' %}
+{% load static %}
+
+{% block head %}
+<title>Parent Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/dashboard_parent.css' %}">
+<script src="https://kit.fontawesome.com/fc6db7efeb.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="login form">
+        <header>Pending Requests</header>
+        <div id="child-wrapper">
+            {% if pending_children %}
+                {% for child in pending_children %}
+                    <div class="child">
+                        <div class="child-partition">
+                            <div class="profile">
+                                <img src="{% static 'images/profile.png' %}" alt="">
+                                <p><strong>{{child.name}}</strong></p>
+                            </div>
+                            <div class="interact">
+                                <a href="{% url 'approveChild' child.id %}"><button class="button">Approve</button></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No pending requests.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

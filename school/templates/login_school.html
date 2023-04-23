@@ -1,0 +1,38 @@
+{% extends 'base_school.html' %}
+{% load static %}
+
+{% block head %}
+<title>School Login</title>
+<link rel="stylesheet" href="{% static 'css/register_login.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="login form">
+        <header>Login</header>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input name="username" type="text" placeholder="Enter your email">
+            <input name="password" type="password" placeholder="Enter your password">
+            <!-- <a href="#">Forgot password?</a> -->
+            <input type="submit" class="button" value="Login">
+        </form>
+        <div class="signup">
+            <span class="signup">Not registered?
+                <label for="check"><a href="{% url 'registerSchool' %}">Register</a></label>
+            </span>
+        </div>
+        <!-- django messages -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

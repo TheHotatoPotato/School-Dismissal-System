@@ -15,6 +15,13 @@ class Child(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE, default=None)
     grade = models.IntegerField()
     section = models.CharField(max_length=1)
+    choices = (
+        ('At School', 'At School'),
+        ('In Transit', 'In Transit'),
+        ('Dismissed', 'Dismissed'),
+    )
+    status = models.CharField(max_length=20, choices=choices, default=choices[0][0])
+    is_approved = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name + ' - ' + self.parent.user.username

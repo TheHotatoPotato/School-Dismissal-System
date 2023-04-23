@@ -1,4 +1,4 @@
-{% extends 'base_parent.html' %}
+{% extends 'base_school.html' %}
 {% load static %}
 
 {% block head %}
@@ -10,10 +10,9 @@
 {% block body %}
 <div class="container">
     <div class="login form">
-        <header>Dashboard</header>
+        <header>School Dashboard</header>
         <div id="tab-wrapper">
-            <a href="{% url 'createChild' %}"><div class="tab"><i class="fa-solid fa-child"></i></div></a>
-            <div class="tab"><i class="fa-solid fa-truck-pickup"></i></div>
+            <a href="{% url 'childRequests' %}"><div class="tab"><i class="fa-solid fa-person-circle-check"></i></div></a>
         </div>
         <div id="child-wrapper">
             {% for child in children %}

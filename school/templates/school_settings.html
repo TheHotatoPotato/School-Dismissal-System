@@ -1,0 +1,24 @@
+{% extends 'base_school.html' %}
+{% load static %}
+
+{% block head %}
+<title>School Registration</title>
+<link rel="stylesheet" href="{% static 'css/register_login.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="registration form">
+        <header>School Name</header>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" class="button" value="Update">
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

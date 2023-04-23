@@ -28,7 +28,7 @@ def registerParent(request):
             user = form.save()
             Parent.objects.create(user=user)
             messages.success(request, 'Account was created successfully')
-            return HttpResponse("Account was created successfully")
+            return HttpResponseRedirect(redirect_to=reverse('loginParent'))
     context = {'form': form}
     return render(request, 'register_parent.html', context)
 
@@ -44,8 +44,13 @@ def loginParent(request):
             return HttpResponseRedirect(redirect_to=reverse('dashboardParent'))
     return render(request, 'login_parent.html')
 
+def logoutParent(request):
+    logout(request)
+    return HttpResponseRedirect(redirect_to=reverse('loginParent'))
+
 def dashboardParent(request):
     children = Child.objects.filter(parent=Parent.objects.get(user=request.user))
+    children = sorted(children, key=lambda x: x.is_approved, reverse=True)
     context = {'children': children}
     return render(request, 'dashboard_parent.html', context)
 

@@ -41,8 +41,13 @@ def loginParent(request):
             messages.info(request, 'Username or password is incorrect.')
         else:
             login(request, user)
-            return HttpResponseRedirect(reverse('createChild'))
+            return HttpResponseRedirect(redirect_to=reverse('dashboardParent'))
     return render(request, 'login_parent.html')
+
+def dashboardParent(request):
+    children = Child.objects.filter(parent=Parent.objects.get(user=request.user))
+    context = {'children': children}
+    return render(request, 'dashboard_parent.html', context)
 
 def createChild(request):
     form = CreateChildForm()
@@ -53,6 +58,6 @@ def createChild(request):
             child.parent = Parent.objects.get(user=request.user)
             child.save()
             messages.success(request, 'Child was created successfully')
-            return HttpResponse("Child was created successfully")
+            return HttpResponseRedirect(redirect_to=reverse('dashboardParent'))
     context = {'form': form}
     return render(request, 'create_child.html', context)

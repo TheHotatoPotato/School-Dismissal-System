@@ -1,0 +1,38 @@
+{% extends 'base_parent.html' %}
+{% load static %}
+
+{% block head %}
+<title>Parent Dashboard</title>
+<link rel="stylesheet" href="{% static 'css/dashboard_parent.css' %}">
+<script src="https://kit.fontawesome.com/fc6db7efeb.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="login form">
+        <header>Dashboard</header>
+        <div id="tab-wrapper">
+            <a href="{% url 'createChild' %}"><div class="tab"><i class="fa-solid fa-child"></i></div></a>
+            <div class="tab"><i class="fa-solid fa-truck-pickup"></i></div>
+        </div>
+        <div id="child-wrapper">
+            {% for child in children %}
+                <div class="child">
+                    <div class="child-partition">
+                        <div class="profile">
+                            <img src="{% static 'images/profile.png' %}" alt="">
+                            <p><strong>{{child.name}}</strong></p>
+                        </div>
+                        <div class="interact">
+                            <div class="flag">• at school</div>
+                            <button class="button">Pick</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

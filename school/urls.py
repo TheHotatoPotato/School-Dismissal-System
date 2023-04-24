@@ -10,4 +10,5 @@ urlpatterns = [
     path('dashboard-school/', dashboardSchool, name='dashboardSchool'),
     path('child-requests/', childRequests, name='childRequests'),
     path('approve-child/<str:pk>/', approveChild, name='approveChild'),
+    path('drop-child/<str:pk>/', dropChild, name='dropChild'),
 ]

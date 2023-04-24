@@ -10,14 +10,13 @@
 {% block body %}
 <div class="container">
     <div class="login form">
-        <header>School Dashboard</header>
+        <header>{{school}}'s Dashboard</header>
         <div id="tab-wrapper">
             <a href="{% url 'childRequests' %}"><div class="tab"><i class="fa-solid fa-person-circle-check"></i></div></a>
             <a href="{% url 'childRequests' %}"><div class="tab"><i class="fa-solid fa-people-group"></i></div></a>
         </div>
         <div id="child-wrapper">
             {% for child in children %}
-                {% if child.is_approved %}
                 <div class="child">
                     <div class="child-partition">
                         <div class="profile">
@@ -25,24 +24,15 @@
                             <p><strong>{{child.name}}</strong></p>
                         </div>
                         <div class="interact">
-                            <div class="flag">• at school</div>
-                            <button class="button">Pick</button>
+                            <div class="flag">{{child.status}}</div>
+                            {% if child.status == 'In Transit' %}
+                                <a href="{% url 'dropChild' child.id %}"><button class="button">Dismiss</button></a>
+                            {% elif child.status == 'Dismissed' %}
+                                <p>ready for pickup logic</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% else %}
-                <div class="child">
-                    <div class="child-partition">
-                        <div class="profile">
-                            <img src="{% static 'images/profile.png' %}" alt="">
-                            <p><strong>{{child.name}}</strong></p>
-                        </div>
-                        <div class="interact">
-                            <div class="flag">pending approval</div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
             {% endfor %}
         </div>
     </div>

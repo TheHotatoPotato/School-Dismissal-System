@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout-parent/', logoutParent, name='logoutParent'),
     path('add-child/', createChild, name='createChild'),
     path('dashboard-parent/', dashboardParent, name='dashboardParent'),
+    path('pick-child/<str:pk>/', pickChild, name='pickChild'),
 ]

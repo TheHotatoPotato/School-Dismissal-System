@@ -66,3 +66,9 @@ def createChild(request):
             return HttpResponseRedirect(redirect_to=reverse('dashboardParent'))
     context = {'form': form}
     return render(request, 'create_child.html', context)
+
+def pickChild(request, pk):
+    child = Child.objects.get(id=pk)
+    child.status = 'In Transit'
+    child.save()
+    return HttpResponseRedirect(redirect_to=reverse('dashboardParent'))

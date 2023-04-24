@@ -64,9 +64,8 @@ def schoolSettings(request):
 
 def dashboardSchool(request):
     children = Child.objects.filter(school=request.user.school)
-    pending_children = children.filter(is_approved=False)
     approved_children = children.filter(is_approved=True)
-    context = {}
+    context = {'children': approved_children, 'school': request.user.school.name}
     return render(request, 'dashboard_school.html', context)
 
 def childRequests(request):
@@ -80,3 +79,9 @@ def approveChild(request, pk):
     child.is_approved = True
     child.save()
     return HttpResponseRedirect(redirect_to=reverse('childRequests'))
+
+def dropChild(request, pk):
+    child = Child.objects.get(id=pk)
+    child.status = "Dismissed"
+    child.save()
+    return HttpResponseRedirect(redirect_to=reverse('dashboardSchool'))
